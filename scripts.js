@@ -13,18 +13,41 @@ const computerSelection = getComputerChoice();
 function playerChoice(){
     let raw_input = prompt("Choose Rock, Paper, or Scissors. ");
     let playerChoice = raw_input.toLowerCase();
-    
-    if (playerChoice == "rock" || playerChoice == "paper" || playerChoice == "scissors"){
-        return playerChoice;
+
+    if (playerChoice != "rock" && playerChoice != "paper" && playerChoice != "scissors"){
+        alert("Please choose Rock, Paper, or Scissors!");
+        return
     }
     else {
-        console.log("Please choose Rock, Paper, or Scissors!");
+        return playerChoice;
     }
 }
 const playerSelection = playerChoice();
 
-
-function playRound(playerSelection, computerSelection) {
-    return console.log("dookie butt");
+// If player entered a correct option ...
+if (typeof playerSelection !== "undefined") {
+    function playRound(playerSelection, computerSelection) {
+        if (playerSelection == computerSelection) {
+            return console.log("You Tied!")
+        }
+        else {
+            let winningStatement = `You Won! ${playerSelection} beats ${computerSelection}`
+            let losingStatement = `You Lost! ${playerSelection} loses to ${computerSelection}`
+            if (playerSelection == "rock" && computerSelection == "scissors") {
+                return console.log(winningStatement)
+            }
+            else if (playerSelection == "paper" && computerSelection == "rock") {
+                return console.log(winningStatement)
+            }
+            else if (playerSelection == "scissors" && computerSelection == "paper") {
+                return console.log(winningStatement)
+            }
+            else {
+                return console.log(losingStatement)
+            }
+        }
+    }
+    console.log(playRound(playerSelection, computerSelection));
 }
-console.log(playRound(playerSelection, computerSelection));
+
+
