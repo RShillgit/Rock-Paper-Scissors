@@ -1,2 +1,2 @@
 # Rock-Paper-Scissors
-Added game function which works how I want it to, but the getComputerChoice and playerChoice functions run first, messing with the score functionality.
+Game works properly when inputting any variation of the words "rock", "paper", or "scissors", but does not handle errors like inputting nothing, inputting a different word, inputting a number, etc.

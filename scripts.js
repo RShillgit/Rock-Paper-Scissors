@@ -1,31 +1,31 @@
-// Array of options 
-const options = ["rock", "paper", "scissors"];
+// Function that plays a 5 round game of Rock/Paper/Scissors and keeps track of score
+function Game() {
 
-// Function that gets a random value from the options array
-function getComputerChoice(){
-    let randomChoice = Math.floor(Math.random()*options.length);
-    let computerChoice = (options[randomChoice]);
-    return computerChoice;
-}
-const computerSelection = getComputerChoice();
+    // Array of options 
+    const options = ["rock", "paper", "scissors"];
 
-// Function that takes player input 
-function playerChoice(){
-    let raw_input = prompt("Choose Rock, Paper, or Scissors. ");
-    let playerChoice = raw_input.toLowerCase();
-
-    if (playerChoice != "rock" && playerChoice != "paper" && playerChoice != "scissors"){
-        alert("Please choose Rock, Paper, or Scissors!");
-        return
+    // Function that gets a random value from the options array
+    function getComputerChoice(){
+        let randomChoice = Math.floor(Math.random()*options.length);
+        let computerChoice = (options[randomChoice]);
+        return computerChoice;
     }
-    else {
-        return playerChoice;
-    }
-}
-const playerSelection = playerChoice();
+    const computerSelection = getComputerChoice();
 
-// If player entered a correct option ...
-if (typeof playerSelection !== "undefined") {
+    // Function that takes player input 
+    function playerChoice(input){
+        let playerChoice = input.toLowerCase();
+
+        if (playerChoice != "rock" && playerChoice != "paper" && playerChoice != "scissors"){
+            alert("Please choose Rock, Paper, or Scissors!");
+            return
+        }
+        else {
+            return playerChoice;
+        }
+    }
+    
+
     function playRound(playerSelection, computerSelection) {
         // Wins = 1, losses/ties = 0 to keep track of score
         let win = 1
@@ -56,17 +56,17 @@ if (typeof playerSelection !== "undefined") {
                 return lose_or_tie
             }
         }
+        
     }
-    console.log(playRound(playerSelection, computerSelection))
-}
 
-// Function that plays a 5 round game and keeps track of score
-function Game() {
     var score = 0
     for (let i = 0; i < 5; i++) {
+        
         let player_selection = prompt("Please choose Rock, Paper, or Scissors!")
+
+        let playersChoice = playerChoice(player_selection)
         let computer_selection = getComputerChoice()
-        score += playRound(player_selection, computer_selection)
+        score += playRound(playersChoice, computer_selection)
         console.log(`Score:${score}`)
     }
     if (score >= 3) {
