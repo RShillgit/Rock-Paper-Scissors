@@ -27,27 +27,53 @@ const playerSelection = playerChoice();
 // If player entered a correct option ...
 if (typeof playerSelection !== "undefined") {
     function playRound(playerSelection, computerSelection) {
+        // Wins = 1, losses/ties = 0 to keep track of score
+        let win = 1
+        let lose_or_tie = 0
+        // Statements to use for alerts after each round
+        let winningStatement = `You Won! ${playerSelection} beats ${computerSelection}!`
+        let losingStatement = `You Lost! ${playerSelection} loses to ${computerSelection}!`
+
         if (playerSelection == computerSelection) {
-            return console.log("You Tied!")
+            console.log(`You Tied! ${playerSelection} ties ${computerSelection}`)
+            return lose_or_tie
         }
         else {
-            let winningStatement = `You Won! ${playerSelection} beats ${computerSelection}`
-            let losingStatement = `You Lost! ${playerSelection} loses to ${computerSelection}`
             if (playerSelection == "rock" && computerSelection == "scissors") {
-                return console.log(winningStatement)
+                console.log(winningStatement)
+                return win
             }
             else if (playerSelection == "paper" && computerSelection == "rock") {
-                return console.log(winningStatement)
+                console.log(winningStatement)
+                return win
             }
             else if (playerSelection == "scissors" && computerSelection == "paper") {
-                return console.log(winningStatement)
+                console.log(winningStatement)
+                return win
             }
             else {
-                return console.log(losingStatement)
+                console.log(losingStatement)
+                return lose_or_tie
             }
         }
     }
-    console.log(playRound(playerSelection, computerSelection));
+    console.log(playRound(playerSelection, computerSelection))
 }
 
-
+// Function that plays a 5 round game and keeps track of score
+function Game() {
+    var score = 0
+    for (let i = 0; i < 5; i++) {
+        let player_selection = prompt("Please choose Rock, Paper, or Scissors!")
+        let computer_selection = getComputerChoice()
+        score += playRound(player_selection, computer_selection)
+        console.log(`Score:${score}`)
+    }
+    if (score >= 3) {
+        return console.log(`You Won! Final score:${score}`)
+    }
+    else {
+        return console.log(`You Lost! Final score:${score}`)
+    }
+}
+Game()
