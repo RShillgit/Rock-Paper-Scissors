@@ -1,6 +1,12 @@
 // Function that plays a 5 round game of Rock/Paper/Scissors and keeps track of score
 function Game() {
 
+    // Initialize score to 0
+    let totalScore = 0;
+
+    // Initialize variable to count rounds played
+    let roundsPlayed = 0;
+
     // Array of options 
     const options = ["rock", "paper", "scissors"];
 
@@ -10,70 +16,74 @@ function Game() {
         let computerChoice = (options[randomChoice]);
         return computerChoice;
     }
-    const computerSelection = getComputerChoice();
-
-    // Function that takes player input 
-    function playerChoice(input){
-        let playerChoice = input.toLowerCase();
-
-        if (playerChoice != "rock" && playerChoice != "paper" && playerChoice != "scissors"){
-            alert("Please choose Rock, Paper, or Scissors!");
-            return
-        }
-        else {
-            return playerChoice;
-        }
-    }
     
 
     function playRound(playerSelection, computerSelection) {
-        // Wins = 1, losses/ties = 0 to keep track of score
-        let win = 1
-        let lose_or_tie = 0
-        // Statements to use for alerts after each round
-        let winningStatement = `You Won! ${playerSelection} beats ${computerSelection}!`
-        let losingStatement = `You Lost! ${playerSelection} loses to ${computerSelection}!`
 
-        if (playerSelection == computerSelection) {
-            console.log(`You Tied! ${playerSelection} ties ${computerSelection}`)
-            return lose_or_tie
+        // Statements to use for alerts after each round
+        let winningStatement = `You won, ${playerSelection} beats ${computerSelection}!`
+        let losingStatement = `You lost, ${playerSelection} loses to ${computerSelection}!`
+        let tieStatement = `You tied, ${playerSelection} ties with ${computerSelection}!`;
+
+        // Get roundMessage <p> tag and save it in a variable to change inner html later
+        const roundMessage = document.getElementById('roundMessage');
+
+        if (playerSelection === computerSelection) {
+            roundMessage.innerHTML = tieStatement;
         }
         else {
             if (playerSelection == "rock" && computerSelection == "scissors") {
-                console.log(winningStatement)
-                return win
+                // Incriment score
+                totalScore ++;
+                roundMessage.innerHTML = winningStatement;
             }
             else if (playerSelection == "paper" && computerSelection == "rock") {
-                console.log(winningStatement)
-                return win
+                // Incriment score
+                totalScore ++;
+                roundMessage.innerHTML = winningStatement;   
             }
             else if (playerSelection == "scissors" && computerSelection == "paper") {
-                console.log(winningStatement)
-                return win
+                // Incriment score
+                totalScore ++;
+                roundMessage.innerHTML = winningStatement;
+                
             }
             else {
-                console.log(losingStatement)
-                return lose_or_tie
+                roundMessage.innerHTML = losingStatement;
             }
         }
+        // Set totalScore html to the total score
+        document.getElementById('totalScore').innerHTML = `Score: ${totalScore}`;
         
     }
 
-    var score = 0
-    for (let i = 0; i < 5; i++) {
-        
-        let player_selection = prompt("Please choose Rock, Paper, or Scissors!")
+    // Event listener on buttons that calls playRound function
+    const rps_options = document.querySelectorAll('button'); 
 
-        let playersChoice = playerChoice(player_selection)
-        let computer_selection = getComputerChoice()
-        score += playRound(playersChoice, computer_selection)
-        console.log(`Score:${score}`)
-    }
-    if (score >= 3) {
-        return console.log(`You Won! Final score:${score}`)
-    }
-    else {
-        return console.log(`You Lost! Final score:${score}`)
-    }
+    rps_options.forEach((rps_option) => {
+        rps_option.addEventListener('click', function (e) {
+
+            // Incriment rounds played variable
+            roundsPlayed ++;
+
+            // Allow game to run until either user or computer gets 5 points
+            while (roundsPlayed <= 9) {
+                // Store selected button id (rock, paper, or scissors) in a variable
+                selectedOption = e.target.id;
+                // Get random computer choice
+                const computerSelection = getComputerChoice();
+                
+                return playRound(selectedOption, computerSelection);
+            }
+            // If total score is < 5 that means the user lost
+            if (totalScore < 5){
+                alert("You Lost!");
+            }
+            else {
+                alert("You Won!")
+            };
+        });
+    });
+ 
 }
 Game()

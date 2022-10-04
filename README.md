@@ -1,2 +1,2 @@
 # Rock-Paper-Scissors
-Game works properly when inputting any variation of the words "rock", "paper", or "scissors", but does not handle errors like inputting nothing, inputting a different word, inputting a number, etc.
+A game of rock paper scissors that goes until either the user or computer reaches a score of 5.  Once the game is completed you must refresh the page to restart.
